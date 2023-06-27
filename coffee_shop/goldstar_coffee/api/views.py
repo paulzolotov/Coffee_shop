@@ -113,3 +113,38 @@ class GetCategoryVarietyInDrinkCategoryDrinksView(generics.ListAPIView):
 
         return drinks
 
+
+class GetDrinksInfoFilterView(generics.ListAPIView):
+    """Класс для фильтрации напитков по параметрам: Имя, Цена, Категория, Категория типа напитка"""
+
+    queryset = Drinks.objects.all()
+    serializer_class = DrinksSerializer
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ["name", "price", "category", "category_of_sort_drink"]
+
+
+class GetDrinksInfoSearchView(generics.ListAPIView):
+    """Класс для поиска напитков по параметрам: Имя напитка, Сокращенное имя напитка, Категория напитка, Категория
+    типа напитка"""
+
+    queryset = Drinks.objects.all()
+    serializer_class = DrinksSerializer
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    filter_backends = [rest_filters.SearchFilter]
+    search_fields = [
+        "name",
+        "slug",
+        "category__name",
+        "category_of_sort_drink__name",
+    ]
+
+
+class GetDrinksInfoOrderView(generics.ListAPIView):
+    """Класс для упорядочивания поездок по параметрам: Направление, Дата, Время, Цена за место"""
+
+    queryset = Drinks.objects.all()
+    serializer_class = DrinksSerializer
+    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    filter_backends = [rest_filters.OrderingFilter]
+    ordering_fields = ["name", "price"]

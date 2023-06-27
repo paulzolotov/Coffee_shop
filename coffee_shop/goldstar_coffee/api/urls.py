@@ -19,4 +19,7 @@ urlpatterns = [
         "category-variety/<slug:category_slug>/<slug:variety_in_drink_category_slug>/",
         views.GetCategoryVarietyInDrinkCategoryDrinksView.as_view(),
     ),
+    path("filter-drinks/", views.GetDrinksInfoFilterView.as_view()),
+    path("search-drinks/", views.GetDrinksInfoSearchView.as_view()),
+    path("order-drinks/", views.GetDrinksInfoOrderView.as_view()),
 ]
