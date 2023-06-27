@@ -60,6 +60,7 @@ class VarietyInDrinkCategoryAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
+        "category",
         "view_drinks_link"
     )
 

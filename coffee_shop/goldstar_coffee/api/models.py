@@ -30,6 +30,10 @@ class Category(ShopInfoMixin):
 class VarietyInDrinkCategory(ShopInfoMixin):
     """Класс для создания модели - Разновидность кофе/чая/ ... """
 
+    category = models.ForeignKey(
+        Category, verbose_name="Drink Category", on_delete=models.CASCADE
+    )
+
     class Meta:
         verbose_name = "Variety"
         verbose_name_plural = "Varieties"
@@ -43,12 +47,6 @@ class VarietyInDrinkCategory(ShopInfoMixin):
 class Drinks(ShopInfoMixin):
     """Класс для создания модели - Напитки"""
 
-    CHOICES = (
-        ("1", "S"),
-        ("2", "M"),
-        ("3", "L"),
-    )
-
     category = models.ForeignKey(
         Category, verbose_name="Drink Category", on_delete=models.CASCADE
     )
@@ -60,12 +58,9 @@ class Drinks(ShopInfoMixin):
         default=0, validators=[MinValueValidator(1)], verbose_name="Price per drink"
     )
     image = models.FileField(upload_to="api/")
-    # glass_size = models.CharField(
-    #     max_length=10, choices=CHOICES, verbose_name="Glass size"
-    # )
-    # rating = models.IntegerField(
-    #     default=0, validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Drink rating from user"
-    # )
+    number_of_drink_glass_sizes = models.IntegerField(
+        default=0, validators=[MinValueValidator(1), MaxValueValidator(6)], verbose_name="Number of drink glass sizes"
+    )
 
     class Meta:
         verbose_name = "Drinks"
