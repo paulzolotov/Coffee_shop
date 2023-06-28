@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.http import HttpRequest
 from django.urls import reverse
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 from django.utils.http import urlencode
 
 from .models import Category, Drinks, VarietyInDrinkCategory
@@ -88,7 +88,7 @@ class DrinksAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
-        "image",
+        "img_preview",
         "category",
         "category_of_sort_drink",
         "price",
@@ -98,9 +98,26 @@ class DrinksAdmin(FunctionsForActions):
     sortable_by = ("name", "price", "category", "category_of_sort_drink")
     list_filter = ("name", "price", "category", "category_of_sort_drink")
     actions = ("make_inactive", "make_active")
+    readonly_fields = ("img_tag",)
 
     @admin.display(description="custom price")
     def show_pretty_price(self, obj) -> str:
         """Функция для отображения кастомной записи для 'цены за место' (В данном случае добавили знак $)"""
 
         return f"{obj.price} BYN"
+
+    @admin.display(description="drink image")
+    def img_preview(self, obj):
+        """Функция для отображения иконки с игрой определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
+
+    @admin.display(description="image tag")
+    def img_tag(self, obj):
+        """Функция для отображения иконки с игрой определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
