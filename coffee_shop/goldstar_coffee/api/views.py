@@ -16,7 +16,7 @@ from .serializers import (CategorySerializer, VarietyInDrinkCategorySerializer,
 class GetCategoryInfoView(APIView):
     """Класс для отображения всех активных категорий напитков"""
 
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
 
     def get(self, request: Request) -> Response:
         """Получили сериализованные данные имеющихся Категорий"""
@@ -29,7 +29,7 @@ class GetCategoryInfoView(APIView):
 class GetVarietyInDrinkCategoryInfoView(APIView):
     """Класс для отображения всех активных Категорий определенного типа напитков"""
 
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
 
     def get(self, request: Request) -> Response:
         """Получили сериализованные данные имеющихся Категорий"""
@@ -42,7 +42,7 @@ class GetVarietyInDrinkCategoryInfoView(APIView):
 class GetDrinksInfoView(APIView):
     """Класс для отображения всех активных напитков"""
 
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
 
     def get(self, request: Request) -> Response:
         """Получили сериализованные данные имеющихся Категорий"""
@@ -74,7 +74,7 @@ class GetCategoryDrinksView(generics.ListAPIView):
 class GetVarietyInDrinkCategoryDrinksView(generics.ListAPIView):
     """Класс для отображения всех напитков определенной категории типа напитков"""
 
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     serializer_class = DrinksSerializer
 
     def get_queryset(self) -> QuerySet:
@@ -93,7 +93,7 @@ class GetVarietyInDrinkCategoryDrinksView(generics.ListAPIView):
 class GetCategoryVarietyInDrinkCategoryDrinksView(generics.ListAPIView):
     """Класс для отображения всех напитков определенной категории и определенной категории типа напитков"""
 
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     serializer_class = DrinksSerializer
 
     def get_queryset(self) -> QuerySet:
@@ -119,7 +119,7 @@ class GetDrinksInfoFilterView(generics.ListAPIView):
 
     queryset = Drinks.objects.all()
     serializer_class = DrinksSerializer
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ["name", "price", "category", "category_of_sort_drink"]
 
@@ -130,7 +130,7 @@ class GetDrinksInfoSearchView(generics.ListAPIView):
 
     queryset = Drinks.objects.all()
     serializer_class = DrinksSerializer
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     filter_backends = [rest_filters.SearchFilter]
     search_fields = [
         "name",
@@ -145,6 +145,6 @@ class GetDrinksInfoOrderView(generics.ListAPIView):
 
     queryset = Drinks.objects.all()
     serializer_class = DrinksSerializer
-    renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
     filter_backends = [rest_filters.OrderingFilter]
     ordering_fields = ["name", "price"]

@@ -102,13 +102,13 @@ class DrinksAdmin(FunctionsForActions):
 
     @admin.display(description="custom price")
     def show_pretty_price(self, obj) -> str:
-        """Функция для отображения кастомной записи для 'цены за место' (В данном случае добавили знак $)"""
+        """Функция для отображения кастомной записи для 'цены за напиток' (В данном случае добавили знак $)"""
 
-        return f"{obj.price} BYN"
+        return f"{obj.price} $"
 
     @admin.display(description="drink image")
     def img_preview(self, obj):
-        """Функция для отображения иконки с игрой определенного размера"""
+        """Функция для отображения иконки с напитком определенного размера"""
 
         return mark_safe(
             f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
@@ -116,7 +116,7 @@ class DrinksAdmin(FunctionsForActions):
 
     @admin.display(description="image tag")
     def img_tag(self, obj):
-        """Функция для отображения иконки с игрой определенного размера"""
+        """Функция для отображения иконки с напитком определенного размера"""
 
         return mark_safe(
             f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
