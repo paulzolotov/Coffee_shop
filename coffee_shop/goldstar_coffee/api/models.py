@@ -14,12 +14,12 @@ class ShopInfoMixin(models.Model):
         abstract = True
 
 
-class Category(ShopInfoMixin):
+class DrinkCategory(ShopInfoMixin):
     """Класс для создания модели - Категория Напитка"""
 
     class Meta:
-        verbose_name = "Category"
-        verbose_name_plural = "Categories"
+        verbose_name = "Drink Category"
+        verbose_name_plural = "Drink Categories"
 
     def __str__(self) -> str:
         """Возвращает удобочитаемую строку для каждого объекта."""
@@ -31,12 +31,12 @@ class VarietyInDrinkCategory(ShopInfoMixin):
     """Класс для создания модели - Разновидность кофе/чая/ ... """
 
     category = models.ForeignKey(
-        Category, verbose_name="Drink Category", on_delete=models.CASCADE
+        DrinkCategory, verbose_name="Variety In Drink Category", on_delete=models.CASCADE
     )
 
     class Meta:
-        verbose_name = "Variety"
-        verbose_name_plural = "Varieties"
+        verbose_name = "Variety In Drink Category"
+        verbose_name_plural = "Varieties In Drink Category"
 
     def __str__(self) -> str:
         """Возвращает удобочитаемую строку для каждого объекта."""
@@ -48,7 +48,7 @@ class Drinks(ShopInfoMixin):
     """Класс для создания модели - Напитки"""
 
     category = models.ForeignKey(
-        Category, verbose_name="Drink Category", on_delete=models.CASCADE
+        DrinkCategory, verbose_name="Drink Category", on_delete=models.CASCADE
     )
     category_of_sort_drink = models.ForeignKey(
         VarietyInDrinkCategory, verbose_name="Variety In Drink Category", on_delete=models.CASCADE
@@ -65,6 +65,61 @@ class Drinks(ShopInfoMixin):
     class Meta:
         verbose_name = "Drinks"
         verbose_name_plural = "Drinks"
+
+    def __str__(self) -> str:
+        """Возвращает удобочитаемую строку для каждого объекта."""
+
+        return f"{self.name}"
+
+
+class FoodCategory(ShopInfoMixin):
+    """Класс для создания модели - Категория Еды"""
+
+    class Meta:
+        verbose_name = "Food Category"
+        verbose_name_plural = "Food Categories"
+
+    def __str__(self) -> str:
+        """Возвращает удобочитаемую строку для каждого объекта."""
+
+        return f"{self.name}"
+
+
+class VarietyInFoodCategory(ShopInfoMixin):
+    """Класс для создания модели - Разновидность завтраков/обедов ... """
+
+    category = models.ForeignKey(
+        FoodCategory, verbose_name="Variety In Food Category", on_delete=models.CASCADE
+    )
+
+    class Meta:
+        verbose_name = "Variety In Food Category"
+        verbose_name_plural = "Varieties In Food Category"
+
+    def __str__(self) -> str:
+        """Возвращает удобочитаемую строку для каждого объекта."""
+
+        return f"{self.name}"
+
+
+class Food(ShopInfoMixin):
+    """Класс для создания модели - Еда"""
+
+    category = models.ForeignKey(
+        FoodCategory, verbose_name="Food Category", on_delete=models.CASCADE
+    )
+    category_of_sort_food = models.ForeignKey(
+        VarietyInFoodCategory, verbose_name="Variety In Food Category", on_delete=models.CASCADE
+    )
+    description = models.TextField(max_length=500, verbose_name="description")
+    price = models.IntegerField(
+        default=0, validators=[MinValueValidator(1)], verbose_name="Price per food"
+    )
+    image = models.FileField(upload_to="api/")
+
+    class Meta:
+        verbose_name = "Food"
+        verbose_name_plural = "Food products"
 
     def __str__(self) -> str:
         """Возвращает удобочитаемую строку для каждого объекта."""

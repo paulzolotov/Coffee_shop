@@ -34,22 +34,40 @@ urlpatterns = [
     re_path(
         r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
-    path("categories/", views.GetCategoryInfoView.as_view()),
-    path("drink-categories/", views.GetVarietyInDrinkCategoryInfoView.as_view()),
+    path("drink-categories/", views.GetDrinkCategoryInfoView.as_view()),
+    path("varieties-drink-categories/", views.GetVarietyInDrinkCategoryInfoView.as_view()),
     path("drinks/", views.GetDrinksInfoView.as_view()),
     path(
-        "category/<slug:category_slug>/",
-        views.GetCategoryDrinksView.as_view(),
+        "drinks-from-category/<slug:category_slug>/",
+        views.GetDrinksFromCategoryView.as_view(),
     ),
     path(
-        "variety/<slug:variety_in_drink_category_slug>/",
-        views.GetVarietyInDrinkCategoryDrinksView.as_view(),
+        "drinks-from-variety/<slug:variety_in_drink_category_slug>/",
+        views.GetDrinksFromVarietyView.as_view(),
     ),
     path(
-        "category-variety/<slug:category_slug>/<slug:variety_in_drink_category_slug>/",
-        views.GetCategoryVarietyInDrinkCategoryDrinksView.as_view(),
+        "drink-category-variety/<slug:category_slug>/<slug:variety_in_drink_category_slug>/",
+        views.GetDrinksFromVarietyInCategoryView.as_view(),
     ),
     path("filter-drinks/", views.GetDrinksInfoFilterView.as_view()),
     path("search-drinks/", views.GetDrinksInfoSearchView.as_view()),
     path("order-drinks/", views.GetDrinksInfoOrderView.as_view()),
+    path("food-categories/", views.GetFoodCategoryInfoView.as_view()),
+    path("varieties-food-categories/", views.GetVarietyInFoodCategoryInfoView.as_view()),
+    path("food/", views.GetFoodProductsInfoView.as_view()),
+    path(
+        "food-from-category/<slug:category_slug>/",
+        views.GetFoodProductsFromCategoryView.as_view(),
+    ),
+    path(
+        "food-from-variety/<slug:variety_in_food_category_slug>/",
+        views.GetFoodProductsFromVarietyView.as_view(),
+    ),
+    path(
+        "food-category-variety/<slug:category_slug>/<slug:variety_in_food_category_slug>/",
+        views.GetFoodProductsFromVarietyInCategoryView.as_view(),
+    ),
+    path("filter-food/", views.GetFoodProductsInfoFilterView.as_view()),
+    path("search-food/", views.GetFoodProductsInfoSearchView.as_view()),
+    path("order-food/", views.GetFoodProductsInfoOrderView.as_view()),
 ]

@@ -1,15 +1,15 @@
-from .models import Category, Drinks, VarietyInDrinkCategory
+from .models import DrinkCategory, Drinks, VarietyInDrinkCategory, FoodCategory, Food, VarietyInFoodCategory
 from rest_framework import serializers
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    """Класс, формирующий сериализованные данные модели Category"""
+class DrinkCategorySerializer(serializers.ModelSerializer):
+    """Класс, формирующий сериализованные данные модели DrinkCategory"""
 
     # ModelSerializer автоматически сгенерирует набор полей для вас, основываясь на модели.
     # Автоматически сгенерирует валидаторы для сериализатора, такие как unique_together валидаторы.
     # Включает в себя реализацию по умолчанию .create() и .update().
     class Meta:
-        model = Category
+        model = DrinkCategory
         fields = (
             "id",
             "name",
@@ -47,4 +47,48 @@ class DrinksSerializer(serializers.ModelSerializer):
             "price",
             "image",
             "number_of_drink_glass_sizes"
+        )
+
+
+class FoodCategorySerializer(serializers.ModelSerializer):
+    """Класс, формирующий сериализованные данные модели FoodCategory"""
+
+    class Meta:
+        model = FoodCategory
+        fields = (
+            "id",
+            "name",
+            "slug",
+            "is_active"
+        )
+
+
+class VarietyInFoodCategorySerializer(serializers.ModelSerializer):
+    """Класс, формирующий сериализованные данные модели VarietyInFoodCategory"""
+
+    class Meta:
+        model = VarietyInFoodCategory
+        fields = (
+            "id",
+            "name",
+            "slug",
+            "is_active"
+        )
+
+
+class FoodSerializer(serializers.ModelSerializer):
+    """Класс, формирующий сериализованные данные модели Food"""
+
+    class Meta:
+        model = Food
+        fields = (
+            "id",
+            "name",
+            "slug",
+            "is_active",
+            "category",
+            "category_of_sort_food",
+            "description",
+            "price",
+            "image",
         )
