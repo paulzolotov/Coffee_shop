@@ -33,7 +33,8 @@ class DrinkCategoryAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
-        "view_drinks_link"
+        "view_drinks_link",
+        "view_varieties_link"
     )
 
     actions = ("make_inactive", "make_active")
@@ -47,9 +48,22 @@ class DrinkCategoryAdmin(FunctionsForActions):
         url = (
             reverse("admin:api_drinks_changelist")
             + "?"
-            + urlencode({"departure_category_id": f"{obj.id}"})
+            + urlencode({"category_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Drinks</a>', url, count)
+
+    @admin.display(description="varieties")
+    def view_varieties_link(self, obj):
+        """Функция для подсчета количества разнообразных вариантов напитков определенной категории, а также генерации
+        ссылки на эти варианты"""
+
+        count = obj.varietyindrinkcategory_set.count()
+        url = (
+            reverse("admin:api_varietyindrinkcategory_changelist")
+            + "?"
+            + urlencode({"category_id": f"{obj.id}"})
+        )
+        return format_html('<a href="{}">{} Varieties</a>', url, count)
 
 
 @admin.register(VarietyInDrinkCategory)
@@ -75,7 +89,7 @@ class VarietyInDrinkCategoryAdmin(FunctionsForActions):
         url = (
             reverse("admin:api_drinks_changelist")
             + "?"
-            + urlencode({"departure_category_of_sort_drink_id": f"{obj.id}"})
+            + urlencode({"category_of_sort_drink_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Drinks</a>', url, count)
 
@@ -97,7 +111,7 @@ class DrinksAdmin(FunctionsForActions):
     )
 
     sortable_by = ("name", "price", "category", "category_of_sort_drink")
-    list_filter = ("name", "price", "category", "category_of_sort_drink")
+    list_filter = ("price", "category", "category_of_sort_drink")
     actions = ("make_inactive", "make_active")
     readonly_fields = ("img_tag",)
 
@@ -146,9 +160,22 @@ class FoodCategoryAdmin(FunctionsForActions):
         url = (
             reverse("admin:api_food_changelist")
             + "?"
-            + urlencode({"departure_category_id": f"{obj.id}"})
+            + urlencode({"category_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Food Products</a>', url, count)
+
+    @admin.display(description="varieties")
+    def view_varieties_link(self, obj):
+        """Функция для подсчета количества разнообразных вариантов еды определенной категории, а также генерации
+        ссылки на эти варианты"""
+
+        count = obj.varietyinfoodcategory_set.count()
+        url = (
+            reverse("admin:api_varietyinfoodcategory_set_changelist")
+            + "?"
+            + urlencode({"category_id": f"{obj.id}"})
+        )
+        return format_html('<a href="{}">{} Varieties</a>', url, count)
 
 
 @admin.register(VarietyInFoodCategory)
@@ -174,7 +201,7 @@ class VarietyInFoodCategoryAdmin(FunctionsForActions):
         url = (
             reverse("admin:api_food_changelist")
             + "?"
-            + urlencode({"departure_category_of_sort_food_id": f"{obj.id}"})
+            + urlencode({"category_of_sort_food_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Food Products</a>', url, count)
 
@@ -195,7 +222,7 @@ class FoodAdmin(FunctionsForActions):
     )
 
     sortable_by = ("name", "price", "category", "category_of_sort_food")
-    list_filter = ("name", "price", "category", "category_of_sort_food")
+    list_filter = ("price", "category", "category_of_sort_food")
     actions = ("make_inactive", "make_active")
     readonly_fields = ("img_tag",)
 

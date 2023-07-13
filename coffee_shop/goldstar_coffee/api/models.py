@@ -31,7 +31,7 @@ class VarietyInDrinkCategory(ShopInfoMixin):
     """Класс для создания модели - Разновидность кофе/чая/ ... """
 
     category = models.ForeignKey(
-        DrinkCategory, verbose_name="Variety In Drink Category", on_delete=models.CASCADE
+        DrinkCategory, verbose_name="Drink Category", on_delete=models.CASCADE
     )
 
     class Meta:
@@ -51,16 +51,19 @@ class Drinks(ShopInfoMixin):
         DrinkCategory, verbose_name="Drink Category", on_delete=models.CASCADE
     )
     category_of_sort_drink = models.ForeignKey(
-        VarietyInDrinkCategory, verbose_name="Variety In Drink Category", on_delete=models.CASCADE
+        VarietyInDrinkCategory, verbose_name="Variety In Drink Category", on_delete=models.CASCADE, null=True,
+        blank=True
     )
     description = models.TextField(max_length=500, verbose_name="description")
-    price = models.IntegerField(
+    price = models.FloatField(
         default=0, validators=[MinValueValidator(1)], verbose_name="Price per drink"
     )
-    image = models.FileField(upload_to="api/")
+    image = models.FileField(upload_to="api/", default='api/coffee.webp')
     number_of_drink_glass_sizes = models.IntegerField(
         default=0, validators=[MinValueValidator(1), MaxValueValidator(6)], verbose_name="Number of drink glass sizes"
     )
+    need_milk = models.BooleanField(default=True, verbose_name="Do you need milk?")
+    need_syrup = models.BooleanField(default=True, verbose_name="Do you need syrup?")
 
     class Meta:
         verbose_name = "Drinks"
@@ -89,7 +92,7 @@ class VarietyInFoodCategory(ShopInfoMixin):
     """Класс для создания модели - Разновидность завтраков/обедов ... """
 
     category = models.ForeignKey(
-        FoodCategory, verbose_name="Variety In Food Category", on_delete=models.CASCADE
+        FoodCategory, verbose_name="Food Category", on_delete=models.CASCADE
     )
 
     class Meta:
@@ -109,13 +112,14 @@ class Food(ShopInfoMixin):
         FoodCategory, verbose_name="Food Category", on_delete=models.CASCADE
     )
     category_of_sort_food = models.ForeignKey(
-        VarietyInFoodCategory, verbose_name="Variety In Food Category", on_delete=models.CASCADE
+        VarietyInFoodCategory, verbose_name="Variety In Food Category", on_delete=models.CASCADE, null=True,
+        blank=True
     )
     description = models.TextField(max_length=500, verbose_name="description")
-    price = models.IntegerField(
+    price = models.FloatField(
         default=0, validators=[MinValueValidator(1)], verbose_name="Price per food"
     )
-    image = models.FileField(upload_to="api/")
+    image = models.FileField(upload_to="api/",  default='api/food.jpg')
 
     class Meta:
         verbose_name = "Food"
