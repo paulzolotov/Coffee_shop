@@ -146,6 +146,7 @@ class FoodCategoryAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
+        "view_varieties_link",
         "view_food_link"
     )
 
@@ -171,7 +172,7 @@ class FoodCategoryAdmin(FunctionsForActions):
 
         count = obj.varietyinfoodcategory_set.count()
         url = (
-            reverse("admin:api_varietyinfoodcategory_set_changelist")
+            reverse("admin:api_varietyinfoodcategory_changelist")
             + "?"
             + urlencode({"category_id": f"{obj.id}"})
         )

@@ -62,8 +62,6 @@ class Drinks(ShopInfoMixin):
     number_of_drink_glass_sizes = models.IntegerField(
         default=0, validators=[MinValueValidator(1), MaxValueValidator(6)], verbose_name="Number of drink glass sizes"
     )
-    need_milk = models.BooleanField(default=True, verbose_name="Do you need milk?")
-    need_syrup = models.BooleanField(default=True, verbose_name="Do you need syrup?")
 
     class Meta:
         verbose_name = "Drinks"
