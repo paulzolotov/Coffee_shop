@@ -17,6 +17,8 @@ class ShopInfoMixin(models.Model):
 class DrinkCategory(ShopInfoMixin):
     """Класс для создания модели - Категория Напитка"""
 
+    image = models.FileField(upload_to="api/", default='api/coffee.webp')
+
     class Meta:
         verbose_name = "Drink Category"
         verbose_name_plural = "Drink Categories"
@@ -75,6 +77,8 @@ class Drinks(ShopInfoMixin):
 
 class FoodCategory(ShopInfoMixin):
     """Класс для создания модели - Категория Еды"""
+
+    image = models.FileField(upload_to="api/",  default='api/food.jpg')
 
     class Meta:
         verbose_name = "Food Category"

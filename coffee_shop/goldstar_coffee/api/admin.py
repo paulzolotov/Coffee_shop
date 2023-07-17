@@ -33,6 +33,7 @@ class DrinkCategoryAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
+        "img_preview",
         "view_drinks_link",
         "view_varieties_link"
     )
@@ -64,6 +65,22 @@ class DrinkCategoryAdmin(FunctionsForActions):
             + urlencode({"category_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Varieties</a>', url, count)
+
+    @admin.display(description="drink-category image")
+    def img_preview(self, obj):
+        """Функция для отображения иконки с напитком определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
+
+    @admin.display(description="image tag")
+    def img_tag(self, obj):
+        """Функция для отображения иконки с напитком определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
 
 
 @admin.register(VarietyInDrinkCategory)
@@ -146,6 +163,7 @@ class FoodCategoryAdmin(FunctionsForActions):
         "name",
         "is_active",
         "slug",
+        "img_preview",
         "view_varieties_link",
         "view_food_link"
     )
@@ -177,6 +195,22 @@ class FoodCategoryAdmin(FunctionsForActions):
             + urlencode({"category_id": f"{obj.id}"})
         )
         return format_html('<a href="{}">{} Varieties</a>', url, count)
+
+    @admin.display(description="food-category image")
+    def img_preview(self, obj):
+        """Функция для отображения иконки с продуктом еды определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
+
+    @admin.display(description="image tag")
+    def img_tag(self, obj):
+        """Функция для отображения иконки с продуктом еды определенного размера"""
+
+        return mark_safe(
+            f'<img src = "{obj.image.url}" width = "70px" height="90px"/>'
+        )
 
 
 @admin.register(VarietyInFoodCategory)
@@ -233,7 +267,7 @@ class FoodAdmin(FunctionsForActions):
 
         return f"{obj.price} $"
 
-    @admin.display(description="drink image")
+    @admin.display(description="food image")
     def img_preview(self, obj):
         """Функция для отображения иконки с продуктом еды определенного размера"""
 

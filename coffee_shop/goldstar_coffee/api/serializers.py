@@ -14,7 +14,8 @@ class DrinkCategorySerializer(serializers.ModelSerializer):
             "id",
             "name",
             "slug",
-            "is_active"
+            "is_active",
+            "image"
         )
 
 
@@ -59,7 +60,8 @@ class FoodCategorySerializer(serializers.ModelSerializer):
             "id",
             "name",
             "slug",
-            "is_active"
+            "is_active",
+            "image"
         )
 
 
