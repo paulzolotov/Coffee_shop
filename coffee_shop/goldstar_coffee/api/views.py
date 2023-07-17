@@ -90,6 +90,25 @@ class GetDrinksFromVarietyView(generics.ListAPIView):
         return drinks
 
 
+class GetVarietiesFromDrinkCategoryView(generics.ListAPIView):
+    """Класс для отображения типов напитков определенной категории"""
+
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    serializer_class = VarietyInDrinkCategorySerializer
+
+    def get_queryset(self) -> QuerySet:
+        """Получили сериализованные данные напитков"""
+
+        # Получили список всех активных напитков по заданной категории
+        category_slug = self.kwargs["category_slug"]
+        category = get_object_or_404(DrinkCategory, slug=category_slug)
+        varieties = category.varietyindrinkcategory_set.filter(
+            is_active=True
+        ).all()
+
+        return varieties
+
+
 class GetDrinksFromVarietyInCategoryView(generics.ListAPIView):
     """Класс для отображения всех напитков определенной категории и определенной категории типа напитков"""
 
@@ -225,6 +244,25 @@ class GetFoodProductsFromVarietyView(generics.ListAPIView):
         ).all()
 
         return food
+
+
+class GetVarietiesFromFoodCategoryView(generics.ListAPIView):
+    """Класс для отображения типов напитков определенной категории"""
+
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    serializer_class = VarietyInFoodCategorySerializer
+
+    def get_queryset(self) -> QuerySet:
+        """Получили сериализованные данные напитков"""
+
+        # Получили список всех активных напитков по заданной категории
+        category_slug = self.kwargs["category_slug"]
+        category = get_object_or_404(FoodCategory, slug=category_slug)
+        varieties = category.varietyinfoodcategory_set.filter(
+            is_active=True
+        ).all()
+
+        return varieties
 
 
 class GetFoodProductsFromVarietyInCategoryView(generics.ListAPIView):
