@@ -133,6 +133,21 @@ class GetDrinksFromVarietyInCategoryView(generics.ListAPIView):
         return drinks
 
 
+class GetOneDrinkFromCategoryView(generics.ListAPIView):
+    """Класс для отображения определенного напитка определенной категории"""
+
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    serializer_class = DrinksSerializer
+
+    def get_queryset(self) -> QuerySet:
+        """Получили сериализованные данные напитков"""
+
+        drink_id = self.kwargs["id"]
+        drink = Drinks.objects.filter(id=drink_id)
+
+        return drink
+
+
 class GetDrinksInfoFilterView(generics.ListAPIView):
     """Класс для фильтрации напитков по параметрам: Имя, Цена, Категория, Категория типа напитка"""
 
@@ -287,6 +302,21 @@ class GetFoodProductsFromVarietyInCategoryView(generics.ListAPIView):
         ).all()
 
         return food
+
+
+class GetOneFoodProductFromCategoryView(generics.ListAPIView):
+    """Класс для отображения определенного продукта еды определенной категории"""
+
+    # renderer_classes = [BrowsableAPIRenderer, JSONRenderer]
+    serializer_class = FoodSerializer
+
+    def get_queryset(self) -> QuerySet:
+        """Получили сериализованные данные напитков"""
+
+        food_pr_id = self.kwargs["id"]
+        food_pr = Food.objects.filter(id=food_pr_id)
+
+        return food_pr
 
 
 class GetFoodProductsInfoFilterView(generics.ListAPIView):
