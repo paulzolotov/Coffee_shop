@@ -54,7 +54,7 @@ urlpatterns = [
         views.GetDrinksFromVarietyInCategoryView.as_view(),
     ),
     path(
-        "drinks-from-category/<slug:category_slug>/<int:id>/",
+        "drink/<int:id>/",
         views.GetOneDrinkFromCategoryView.as_view(),
     ),
     path("filter-drinks/", views.GetDrinksInfoFilterView.as_view()),
@@ -80,7 +80,7 @@ urlpatterns = [
         views.GetFoodProductsFromVarietyInCategoryView.as_view(),
     ),
     path(
-        "food-from-category/<slug:category_slug>/<int:id>/",
+        "food-product/<int:id>/",
         views.GetOneFoodProductFromCategoryView.as_view(),
     ),
     path("filter-food/", views.GetFoodProductsInfoFilterView.as_view()),
